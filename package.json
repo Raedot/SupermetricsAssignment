@@ -1,0 +1,15 @@
+{
+  "name": "supermetrics-assignment",
+  "version": "1.0.0",
+  "description": "Supermetrics assignment for Joonas Hujanen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joonas Hujanen",
+  "license": "MIT",
+  "dependencies": {
+    "moment": "^2.22.2",
+    "node-fetch": "^2.2.0"
+  }
+}
