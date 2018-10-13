@@ -8,6 +8,8 @@ TO RUN THIS CODE:
 - Start the node server by running 'node index.js'
 - Navigate to localhost:8080 using your browser
 
+Note that it takes a few moments to fetch and render the results on screen
+
 SOME OBSERVATIONS:
 - If you're changing your name in config.json's registrationPayload,
   please keep in mind that the API validation fails if you use a space
