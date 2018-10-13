@@ -20,5 +20,6 @@
         "name": "JoonasHujanen"
     },
     "registrationEndpoint": "https://api.supermetrics.com/assignment/register",
-    "postsEndpoint": "https://api.supermetrics.com/assignment/posts"
+    "postsEndpoint": "https://api.supermetrics.com/assignment/posts",
+    "startingPage": 0
 }

@@ -4,19 +4,24 @@
  * Author: Joonas Hujanen
  */
 
-
 const config = require('./config.json')
 const fetch = require('node-fetch')
 const fs = require('fs')
 const http = require('http')
 const moment = require('moment')
 
+/* Don't do anything before index.html is successfully loaded */
 fs.readFile('./index.html', (err, html) => {
     if (err) {
         console.log('Unable to load index.html')
         return
     }
 
+    /* Set up a http server listening to port set in config.
+     * The server contains very rudimentary routing to serve
+     * index.html, main.js and to register and fetch the post
+     * data from the assignment API
+     */
     http.createServer((req, res) => {
         if (req.url == '/') {
             res.write(html)
@@ -49,6 +54,10 @@ fs.readFile('./index.html', (err, html) => {
     }).listen(config.port)
 })
 
+/* Register a short-lived token on the Supermetrics API.
+ * Parameters are set in config.json. If registration
+ * succeeds, proceed to fetch post data recursively
+ */
 function register(callback)
 {
     fetch(config.registrationEndpoint, {
@@ -71,8 +80,8 @@ function register(callback)
             getPosts(
                 config.postsEndpoint,
                 result.data.sl_token,
-                0,
-                1,
+                config.startingPage,
+                config.startingPage + 1,
                 [],
                 resolve,
                 reject
@@ -108,6 +117,10 @@ function getPosts(url, apiToken, currentPage, nextPage, posts, resolve, reject)
     })
 }
 
+/* Get all the post data analysis that's based on month.
+ * Contains avg. length of post per month, the id of the
+ * longest post per month and avg post per user per month
+ */
 function getMonthlyData(posts)
 {
     return avgLengths = config.months.map((month, index) => {
@@ -138,9 +151,12 @@ function getMonthlyData(posts)
     })
 }
 
+/* Calculate total amount of posts per week */
 function totalPostsByWeek(posts)
 {
     let weeklyTotals = []
+
+    //52 weeks in a year. Set week numbers to human readable format in map
     const weeks = Array(52).fill(0).map((week, i) => {
         return parseInt(i) + 1
     })

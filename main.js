@@ -1,3 +1,4 @@
+// Get post data using the node.js bypass
 fetch('http://localhost:8080/getPostData', {
     credentials: 'same-origin'
 }).then((response) => {
